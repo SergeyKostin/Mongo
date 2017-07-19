@@ -49,6 +49,71 @@ public class Application implements CommandLineRunner {
         return "addFilm";
     }
 
+    @RequestMapping(value = "/getFilmByProd", method = RequestMethod.POST)
+    public String getFilmByProd(Map<String, Object> map, @RequestParam("prod_surname") String surname) {
+        List<Producer> prodList1 = new ArrayList<>();
+        prodList1.add(this.producerRepository.findBySurname(surname));
+        map.put("prodList", prodList1);
+        return "filmsList";
+    }
+
+    @RequestMapping(value = "/getFilmByName", method = RequestMethod.POST)
+    public String getFilmByName(Map<String, Object> map, @RequestParam("film_name") String filmName) {
+        List<Producer> prodListbyFilm = new ArrayList<>();
+        for (int i = 0; i < this.prodList.size(); i++) {
+            Producer producer = new Producer();
+            producer = this.prodList.get(i);
+            for (int j = 0; j < producer.getFilmList().size(); j++) {
+                Film film = new Film();
+                film = producer.getFilmList().get(j);
+                if (film.getName().equals(filmName)) {
+                    prodListbyFilm.add(producer);
+                }
+
+            }
+
+        }
+
+        map.put("prodList", prodListbyFilm);
+        return "filmsList";
+    }
+
+    @RequestMapping(value = "/getFilmByGenre", method = RequestMethod.POST)
+    public String getFilmByGenre(Map<String, Object> map, @RequestParam("genre") String genre) {
+        List<Producer> prodListbyGenre = new ArrayList<>();
+        for (int i = 0; i < this.prodList.size(); i++) {
+            Producer producer = new Producer();
+            producer = this.prodList.get(i);
+            for (int j = 0; j < producer.getFilmList().size(); j++) {
+                Film film = new Film();
+                film = producer.getFilmList().get(j);
+                for (int g = 0; g < film.getGenreList().size(); g++) {
+                    Genre genre1 = new Genre();
+                    genre1 = film.getGenreList().get(g);
+                    if (genre1.getName().equals(genre) == true) {
+                        prodListbyGenre.add(producer);
+                    }
+
+                }
+
+            }
+        }
+        map.put("prodList", prodListbyGenre);
+        return "filmsList";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delite(Map<String, Object> map, @RequestParam("surn") String surn) {
+        Producer producer1 = this.producerRepository.findBySurname(surn);
+        this.producerRepository.delete(producer1);
+        this.prodList = new ArrayList<Producer>();
+        for (Producer producer : producerRepository.findAll()) {
+            this.prodList.add(producer);
+        }
+        map.put("prodList", prodList);
+        return "filmsList";
+    }
+
     @RequestMapping(value = "/addFilm",method = RequestMethod.POST)
     public String addFilm(@RequestParam("name_producer") String name, @RequestParam("surname_producer") String surname, @RequestParam("patronymic_producer") String patronymic, @RequestParam("film") String film, @RequestParam("genre") String genre){
         this.genreRepository.deleteAll();
