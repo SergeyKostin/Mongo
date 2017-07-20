@@ -13,7 +13,7 @@ public class Producer {
     private String patronymic;
     private List<Film> filmList=new ArrayList<>();
     @Id
-    private int id;
+    private String id;
 
     public Producer(){}
     public Producer(String name, String surname, String patronymic){

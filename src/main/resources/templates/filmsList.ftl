@@ -78,8 +78,8 @@
                 </form>
             </td>
         </tr>
-    </tbody>
     </#list>
+                    </tbody>
 </table>
                 </div>
             </div>

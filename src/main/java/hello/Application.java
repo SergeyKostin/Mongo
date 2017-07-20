@@ -33,6 +33,7 @@ public class Application implements CommandLineRunner {
     private List<Producer> prodList;//=new ArrayList<Producer>();
 
     public static void main(String[] args) {
+
         SpringApplication.run(Application.class, args);
     }
 
@@ -116,15 +117,10 @@ public class Application implements CommandLineRunner {
 
     @RequestMapping(value = "/addFilm",method = RequestMethod.POST)
     public String addFilm(@RequestParam("name_producer") String name, @RequestParam("surname_producer") String surname, @RequestParam("patronymic_producer") String patronymic, @RequestParam("film") String film, @RequestParam("genre") String genre){
-        this.genreRepository.deleteAll();
         Genre genre1=new Genre(genre);
-        this.genreRepository.save(genre1);
-        this.filmRepository.deleteAll();
         Film film1=new Film();
         film1.setName(film);
         film1.addGenry(genre1);
-        this.filmRepository.save(film1);
-        this.producerRepository.deleteAll();
         Producer producer1=new Producer();
         producer1.setName(name);
         producer1.setSurname(surname);

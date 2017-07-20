@@ -11,7 +11,7 @@ import java.util.List;
 public class Film {
     private String name;
     @Id
-    private int id_film;
+    private String id_film;
     private List<Genre> genreList=new ArrayList<>();
 
     public Film(){}
@@ -27,17 +27,13 @@ public class Film {
         return name;
     }
 
-    public int getId_film() {
-        return id_film;
-    }
+
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setId_film(int id_film) {
-        this.id_film = id_film;
-    }
+
 
     public List<Genre> getGenreList() {
         return genreList;

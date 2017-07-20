@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Genre {
     private String name;
     @Id
-    private int id_genre;
+    private String id_genre;
 
     public Genre(){}
     public Genre(String name){
@@ -19,15 +19,9 @@ public class Genre {
         return name;
     }
 
-    public int getId_genre() {
-        return id_genre;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setId_genre(int id_genre) {
-        this.id_genre = id_genre;
-    }
+
 }
